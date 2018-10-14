@@ -3,7 +3,6 @@ import * as ReactDom from "react-dom"
 import { hot } from "react-hot-loader"
 
 import App from "./App";
-import { MemoryStorage } from "./System/Framer/Datas/MemoryStorage";
 
 require("./index.scss");
 

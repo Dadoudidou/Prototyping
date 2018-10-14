@@ -9,8 +9,9 @@ const datas = {};
 //#region ADHERENTS
 export type adherent = Partial<{
     id: number,
-    nom: string, prenom: string, dateNaissance: moment.Moment,
-    telephone: string, adresse: string, codepostal: string, ville: string
+    nom: string, prenom: string, dateNaissance: moment.Moment, sexe?: number,
+    telephone: string, adresse: string, codepostal: string, ville: string,
+    email?: string
 }>
 const adherents: adherent[] = [];
 for(let i=1; i<=50; i++){
@@ -87,7 +88,7 @@ const campagnes: campagne[] = [
 
 //#region INSCRIPTION EXPRESS
 
-type IExpress = {
+export type IExpress = {
     adherents: adherent[]
     Step1_adherentSelected: number
 }
@@ -109,7 +110,7 @@ export const init = () => {
 export const DatasAdherents = DataConnect.ofType<adherent[], "adherents">();
 export const DatasCampagnes = DataConnect.ofType<campagne[], "campagnes">();
 export const DatasActivites = DataConnect.ofType<activite[], "activites">();
-export const DatasIexpress = DataConnect.ofType<IExpress, "iexpress">();
+
 
 
 
@@ -117,5 +118,5 @@ export default {
     adherents: store.getState().DatasReducer["adherents"],
     campagnes: campagnes,
     activites: store.getState().DatasReducer["activites"],
-    iexpress: iexpress
+    iexpress: store.getState().DatasReducer["iexpress"] as IExpress
 }

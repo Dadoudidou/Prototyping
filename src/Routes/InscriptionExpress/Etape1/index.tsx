@@ -1,8 +1,11 @@
 import * as React from "react"
 import MasterHeaderReturn from "../../../Components/Masters/MasterHeaderReturn";
-import { Toolbar, Typography, Tabs, Tab } from "@material-ui/core";
+import { Toolbar, Typography, Tabs, Tab, Button } from "@material-ui/core";
 import { AddCircleOutline } from "@material-ui/icons";
-import { DatasIexpress } from "../../../Datas";
+import AdherentTabs from "./AdherentTabs";
+import AdherentFormContentInfo from "./AdherentFormContentInfo";
+import DatasIexpress from "../../../Datas/DatasIexpress";
+import AdherentFormContentContact from "./AdherentFormContentContact";
 
 
 type state = {
@@ -12,28 +15,7 @@ type state = {
 
 export default class extends React.PureComponent<any, state>
 {
-    renderTabs = () => (
-        <DatasIexpress name="iexpress">
-            {iexpress => (
-                <div>
-                    <Tabs 
-                        scrollable
-                        fullWidth
-                        value={iexpress.data.Step1_adherentSelected}
-                        onChange={(event, value) => iexpress.update({
-                            ...iexpress.data,
-                            Step1_adherentSelected: value
-                        })}
-                    >
-                        {iexpress.data.adherents.map((adherent, index) => (
-                            <Tab key={index} value={index} label={`${adherent.prenom || "Nouvel adhérent"}`} />
-                        ))}
-                        <Tab value={-1} label={(<AddCircleOutline />)} />
-                    </Tabs>
-                </div>
-            )}
-        </DatasIexpress>
-    )
+
     render(){
         return (
             <div>
@@ -47,7 +29,19 @@ export default class extends React.PureComponent<any, state>
                     )}
                 />
                 <div style={{ marginTop: 130 }}>
-                    {this.renderTabs()}
+                    <AdherentTabs />
+                    <DatasIexpress name="iexpress">
+                        {(data) => data.data.Step1_adherentSelected != -1 && <div>
+                            <AdherentFormContentInfo />
+                            <AdherentFormContentContact />
+                            <div style={{marginTop:"2em", textAlign: "right"}}>
+                                <Button variant="raised" color="primary">
+                                    Etape suivante : <br /> 
+                                    Ajouter des activités aux adhérents
+                                </Button>
+                            </div>
+                        </div>}
+                    </DatasIexpress>
                 </div>
                 
             </div>
