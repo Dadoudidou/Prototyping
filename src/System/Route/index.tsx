@@ -17,6 +17,7 @@ export type RouterRoute = {
     rules?: string[]
 } & RouteProps
 
+import { hot } from "react-hot-loader"
 
 let _reqRoutes = require.context("./../../Routes/", true, /index\.tsx/);
 export const getRoutes = () => {
@@ -27,7 +28,7 @@ export const getRoutes = () => {
             let _routePath = path.replace("./", "/").replace("/index.tsx","");
             _routes.push({
                 path: _routePath,
-                component: _component
+                component:_component
             })
         }
     })

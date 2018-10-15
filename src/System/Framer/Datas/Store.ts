@@ -21,4 +21,11 @@ export const injectReducer = (reducer: { [key:string]: Reducer<any> }) => {
     store.replaceReducer(combineReducers(_asyncReducers) as any);
 }
 
+if(module.hot){
+    module.hot.accept("./DatasReducer", () => {
+        const nextRootReducer = require("./DatasReducer");
+        store.replaceReducer(nextRootReducer);
+    });
+}
+
 export default store;

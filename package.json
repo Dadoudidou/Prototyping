@@ -37,7 +37,14 @@
     "@types/storybook__react": "3.0.9",
     "babel-runtime": "^6.26.0",
     "react-hot-loader": "4.3.11",
-    "@types/websql": "0.0.27"
+    "@types/websql": "0.0.27",
+    "babel-loader": "8.0.4",
+    "@babel/core": "7.1.2",
+    "@babel/preset-env": "7.1.0",
+    "@babel/preset-typescript": "7.1.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/plugin-proposal-decorators": "7.1.2",
+    "@babel/plugin-proposal-class-properties": "7.1.0"
   },
   "dependencies": {
     "moment": "2.22.2",

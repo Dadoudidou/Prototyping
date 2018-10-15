@@ -2,10 +2,11 @@ import * as React from "react";
 import { adherent, IExpress } from "../../../Datas";
 import { ChatOutlined } from "@material-ui/icons"
 import { Typography, TextField, Grid, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
-import moment = require("moment");
+import * as moment from "moment";
 import DatasIexpress from "../../../Datas/DatasIexpress";
 import GridItemForm from "../../../Components/Commons/GridItemForm";
 import { onUpdateAdherent } from "./AdherentFormContentInfo";
+
 
 
 export default () => {

@@ -13,8 +13,7 @@ import { getRoutes, RenderRoutes } from "./System/Route";
 // ---- redux
 import { Provider as ReduxProvider } from "react-redux"
 import reduxClient from "./System/Framer/Datas/Store"
-import { init as initDatas } from "./Datas";
-initDatas();
+
 
 // -- THEME
 import { create as createJss } from "jss";
@@ -51,8 +50,8 @@ const App = () => (
     </HashRouter>
 )
 
-//import { hot } from "react-hot-loader"
-export default App;
+import { hot } from "react-hot-loader"
+export default hot(module)(App);
 
 /*if(module.hot){/
     export default hot(module)(App);

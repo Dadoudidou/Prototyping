@@ -38,7 +38,6 @@ class WrapSession<T,N=string> extends React.Component<WrapConnectProps & WrapCon
     }
 }
 
-
 export default class DataConnect<T = any,N=string> extends React.Component<WrapConnectPublicProps<T,N>, any>
 {
     static ofType<P,Q=string>(){
