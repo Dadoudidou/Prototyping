@@ -65,7 +65,7 @@ export default () => {
                             <TextField 
                                 fullWidth
                                 type="email"
-                                label="Couriel"
+                                label="Courriel"
                                 value={adherent.email  || ""}
                                 onChange={(ev) => {
                                     data.update(onUpdateAdherent({

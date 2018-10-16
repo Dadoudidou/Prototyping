@@ -115,7 +115,7 @@ export const DatasActivites = DataConnect.ofType<activite[], "activites">();
 
 
 export default {
-    adherents: store.getState().DatasReducer["adherents"],
+    adherents: () => store.getState().DatasReducer["adherents"] as adherent[],
     campagnes: campagnes,
     activites: store.getState().DatasReducer["activites"],
     iexpress: store.getState().DatasReducer["iexpress"] as IExpress

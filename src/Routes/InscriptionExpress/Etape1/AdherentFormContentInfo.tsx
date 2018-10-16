@@ -1,5 +1,5 @@
 import * as React from "react";
-import { adherent, IExpress } from "../../../Datas";
+import Datas, { adherent, IExpress } from "../../../Datas";
 import { AccountCircleOutlined } from "@material-ui/icons"
 import { Typography, TextField, Grid, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import * as moment from "moment";
@@ -7,6 +7,7 @@ import DatasIexpress from "../../../Datas/DatasIexpress";
 import GridItemForm from "../../../Components/Commons/GridItemForm";
 import AutoComplete from "../../../System/Framer/Components/AutoComplete";
 import AdherentsAutoComplete from "../../../Components/Adherents/AdherentsAutoComplete";
+import AutoSuggest from "../../../System/Framer/Components/AutoSuggest";
 
 export const onUpdateAdherent = (adherent: adherent, data: IExpress) => {
     return {
@@ -30,8 +31,8 @@ export default () => {
                         <AccountCircleOutlined style={{ verticalAlign: "middle" }} /> Informations personnelles
                     </Typography>
                     <Grid container>
-                        <GridItemForm item xs={11}>
-                            {/*<AdherentsAutoComplete 
+                        <GridItemForm item xs={12}>
+                            <AdherentsAutoComplete 
                                 fullWidth
                                 autoFocus
                                 label="Nom"
@@ -42,18 +43,7 @@ export default () => {
                                         nom: ev.target.value
                                     }, data.data))
                                 }}
-                            />*/}
-                            <TextField 
-                                fullWidth
-                                autoFocus
-                                label="Nom"
-                                value={adherent.nom || ""}
-                                onChange={(ev) => {
-                                    data.update(onUpdateAdherent({
-                                        ...adherent,
-                                        nom: ev.target.value
-                                    }, data.data))
-                                }}
+                                onSelect={item => data.update(onUpdateAdherent(item, data.data))}
                             />
                         </GridItemForm>
                         <GridItemForm item xs={12}>

@@ -1,56 +1,36 @@
 import * as React from "react";
 import AutoComplete from "../../System/Framer/Components/AutoComplete";
 import { Option } from "react-select/lib/filters";
-import { DatasAdherents } from "../../Datas";
+import Datas, { DatasAdherents, adherent } from "../../Datas";
 import { TextFieldProps } from "@material-ui/core/TextField";
+import AutoSuggest from "../../System/Framer/Components/AutoSuggest";
 
 type props = {
-    onAutoCompleteChange?: (data: any) => void
+    onSelect?: (item: adherent) => void
 } & TextFieldProps
 
 export default class extends React.PureComponent<props, any>
 {
-    filterOption = (data: Option, search: string) => {
-        if(!search) return true;
-        let _bool = false;
-        if(data.data.prenom){
-            let _nom = data.data.nom.toLowerCase().indexOf(search.toLowerCase()) > -1;
-            let _prenom = data.data.prenom.toLowerCase().indexOf(search.toLowerCase()) > -1;
-            _bool = _nom || _prenom
-        }
-        return _bool;
-    }
-    formatOptionLabel = (data: any) => {
-        let _styles: React.CSSProperties = {
-            height: "2em",
-            color: "#ffffff",
-            fontSize: "0.8em",
-            marginRight: "2em"
-        }
-        if(data.prenom) 
-            return (<div>
-                {data.nom} {data.prenom} - {data.telephone}
-            </div>);
-        
-        return (<div></div>)
-    }
+    
     render(){
-        const {  onAutoCompleteChange, ...rest } = this.props;
+        const { value, onSelect, onChange, ...rest } = this.props;
         return (
-            <DatasAdherents name="adherents">
-                {(datasAdherents) => (
-                    <AutoComplete 
-                        filterOption={this.filterOption}
-                        formatOptionLabel={this.formatOptionLabel}
-                        placeholder=""
-                        ControlProps={rest}
-                        options={datasAdherents.data}
-                        //inputValue={value as string}
-                        onChange={onAutoCompleteChange}
-                    />
-                )}
-            
-            </DatasAdherents>
+            <AutoSuggest 
+                items={Datas.adherents()}
+                onClearRequested={() => {}}
+                onFetchRequested={() => {}}
+                renderItem={(item) => (<div>{item.nom} {item.prenom} - {item.ville}</div>)}
+                renderItemValue={(item) => item.nom}
+                onSelect={onSelect}
+                InputValue={value as string}
+                onInputChange={onChange}
+                TextFieldProps={rest}
+                matchItem={(item: adherent, query) => {
+                    return item.nom.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+                    item.prenom.toLowerCase().indexOf(query.toLowerCase()) > -1
+                }}
+                
+            />
         )
     }
 }
