@@ -15,6 +15,7 @@ export type adherent = Partial<{
 }>
 const adherents: adherent[] = [];
 for(let i=1; i<=50; i++){
+    let _city = Chance.city();
     adherents.push({
         id: i,
         nom: Chance.last(),
@@ -22,11 +23,12 @@ for(let i=1; i<=50; i++){
         dateNaissance: moment(Chance.birthday()),
         telephone: Chance.phone(),
         adresse: Chance.address(),
-        codepostal: Chance.postal(),
-        ville: Chance.city()
+        codepostal: _city.postalCode,
+        ville: _city.city
     })
 }
 //#endregion
+
 
 //#region ACTIVITES
 type activite = {
@@ -75,6 +77,7 @@ const activites: activite[] = [
 ]
 //#endregion
 
+
 //#region CAMPAGNES
 type campagne = {
     id: number
@@ -85,6 +88,7 @@ const campagnes: campagne[] = [
     { id: 2, nom: "Saison 2018-2019" }
 ]
 //#endregion
+
 
 //#region INSCRIPTION EXPRESS
 

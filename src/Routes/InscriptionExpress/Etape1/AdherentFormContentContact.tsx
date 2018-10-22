@@ -6,6 +6,7 @@ import * as moment from "moment";
 import DatasIexpress from "../../../Datas/DatasIexpress";
 import GridItemForm from "../../../Components/Commons/GridItemForm";
 import { onUpdateAdherent } from "./AdherentFormContentInfo";
+import AutoCompleteVilles from "../../../Components/Villes/AutoCompleteVilles";
 
 
 
@@ -35,7 +36,7 @@ export default () => {
                             />
                         </GridItemForm>
                         <GridItemForm item xs={12}>
-                            <TextField 
+                            <AutoCompleteVilles 
                                 fullWidth
                                 label="Ville"
                                 value={adherent.ville || ""}
@@ -45,7 +46,25 @@ export default () => {
                                         ville: ev.target.value
                                     }, data.data))
                                 }}
+                                onSelect={(item) => {
+                                    data.update(onUpdateAdherent({
+                                        ...adherent,
+                                        ville: item.city,
+                                        codepostal: item.postalCode
+                                    }, data.data))
+                                }}
                             />
+                            {/*<TextField 
+                                fullWidth
+                                label="Ville"
+                                value={adherent.ville || ""}
+                                onChange={(ev) => {
+                                    data.update(onUpdateAdherent({
+                                        ...adherent,
+                                        ville: ev.target.value
+                                    }, data.data))
+                                }}
+                            />*/}
                         </GridItemForm>
                         <GridItemForm item xs={12}>
                             <TextField 

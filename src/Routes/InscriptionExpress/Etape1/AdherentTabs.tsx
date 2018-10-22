@@ -4,7 +4,9 @@ import { AddCircleOutline } from "@material-ui/icons";
 import DatasIexpress from "../../../Datas/DatasIexpress";
 import { adherent } from "../../../Datas";
 
-type props = {}
+type props = {
+    disableAddAdherent?: boolean
+}
 
 export default class extends React.PureComponent<props, any>
 {
@@ -45,7 +47,9 @@ export default class extends React.PureComponent<props, any>
                             {iexpress.data.adherents.map((adherent, index) => (
                                 <Tab key={index} value={index} label={`${adherent.prenom || "Nouvel adhérent"}`} />
                             ))}
-                            <Tab value={-1} label={(<AddCircleOutline />)} />
+                            {!this.props.disableAddAdherent &&
+                                <Tab value={-1} label={(<AddCircleOutline />)} />
+                            }
                         </Tabs>
                     </div>
                 )}
