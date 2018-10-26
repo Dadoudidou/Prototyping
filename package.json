@@ -67,6 +67,8 @@
     "redux-thunk": "2.3.0",
     "react-autosuggest": "9.4.2",
     "autosuggest-highlight": "3.1.1",
-    "@types/react-autosuggest": "9.3.6"
+    "@types/react-autosuggest": "9.3.6",
+    "react-swipeable-views": "0.13.0",
+    "@types/react-swipeable-views": "0.12.2"
   }
 }
