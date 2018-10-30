@@ -1,6 +1,6 @@
 import * as React from "react"
-import { Dialog, DialogTitle, DialogContent, List, ListItem, Typography, IconButton, ListItemText, Grid, Button, DialogActions, Checkbox, FormControlLabel, Radio } from "@material-ui/core";
-import { DatasActivites, session, tarif, activite } from "../../../Datas";
+import { Dialog, DialogTitle, DialogContent, List, ListItem, Typography, IconButton, ListItemText, Grid, Button, DialogActions, Checkbox, FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
+import { DatasActivites, session, tarif, activite, adhesion } from "../../../Datas";
 import Activite from "../../../Components/Activites/Activite";
 import SwipeableViews from 'react-swipeable-views';
 import { ArrowLeft } from "@material-ui/icons"
@@ -11,6 +11,7 @@ import Tarif from "../../../Components/Activites/Tarif";
 type props = {
     open?: boolean
     onClose?: () => void
+    onAddAdhesion?: (activite: activite, sessions: session[], tarif: tarif) => void
 }
 type state = {
     activitySelected?: activite
@@ -26,7 +27,11 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
 {
     constructor(props){
         super(props);
-        this.state = { activitySelected: undefined }
+        this.state = { 
+            activitySelected: undefined,
+            openSessions: false,
+            openTarifs: false
+        }
     }
     componentWillReceiveProps(nextProps: props){
         if(nextProps.open != this.props.open && nextProps.open == true){
@@ -37,6 +42,7 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
             })
         }
     }
+
     handle_onSelectActivite = (activite: activite) => {
         let _sessions = undefined;
         let _tarif = undefined;
@@ -55,17 +61,31 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
         })
     }
 
+    handle_onAddActivite = () => {
+
+    }
+
 
     renderTarif = () => {
         return (
-            <ListItem button divider>
+            <ListItem 
+                button divider
+                onClick={() => {
+                    if(this.state.activitySelected.tarifs && this.state.activitySelected.tarifs.length > 1){
+                        this.setState({
+                            ...this.state,
+                            openTarifs: true
+                        })
+                    }
+                }}
+            >
                 <ListItemText 
                     primary="Tarifs" 
                     secondary={
                         !this.state.tarifSelected ?
                         "Sélectionner un tarif"
                         :
-                        <Tarif tarif={this.state.tarifSelected} />
+                        <Tarif variant="caption" tarif={this.state.tarifSelected} />
                     }
                     secondaryTypographyProps={{ component: "div" }}
                 />
@@ -106,6 +126,12 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
         return (
             <Dialog open={this.state.openSessions}>
                 <DialogTitle>Sessions</DialogTitle>
+                {this.state.tarifSelected && this.state.tarifSelected.nbSessions && this.state.tarifSelected.nbSessions > 0 &&
+                <DialogContent>
+                    <Typography>
+                    {this.state.tarifSelected.nbSessions} session{this.state.tarifSelected.nbSessions > 1 ? "s" : ""} par semaine
+                    </Typography>
+                </DialogContent>}
                 <DialogContent>
                     {this.state.openSessions && this.state.activitySelected.sessions.map(session => (
                         <FormControlLabel 
@@ -115,7 +141,7 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
                                     checked={(this.state.sessionsSelected || []).find(x => x.id == session.id) != undefined}
                                     onChange={() => {
                                         let _fsession = (this.state.sessionsSelected || []).find(x => x.id == session.id);
-                                        let _sessions = [...this.state.sessionsSelected];
+                                        let _sessions = [...(this.state.sessionsSelected || [])];
                                         if(_fsession) _sessions = _sessions.filter(x => x.id != _fsession.id);
                                         else _sessions = [..._sessions, session];
 
@@ -141,28 +167,28 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
         return (
             <Dialog open={this.state.openTarifs}>
                 <DialogTitle>Tarifs</DialogTitle>
-                <DialogContent>
-                    {this.state.openTarifs && this.state.activitySelected.tarifs.map(tarif => (
-                        <FormControlLabel 
-                            key={tarif.id}
-                            control={
-                                <Radio 
-                                    checked={this.state.tarifSelected && this.state.tarifSelected.id == tarif.id}
-                                    onChange={() => {
-                                        this.setState({
-                                            ...this.state,
-                                            tarifSelected: tarif
-                                        })
-                                    }}
-                                />
-                            }
-                            label={<Tarif tarif={tarif} />}
-                        />
-                    ))}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => this.setState({ ...this.state, openSessions: false })}>Fermer</Button>
-                </DialogActions>
+                    <List>
+                        {this.state.openTarifs && this.state.activitySelected.tarifs.map(tarif => (
+                            <ListItem key={tarif.id}>
+                            <FormControlLabel 
+                                
+                                control={
+                                    <Radio 
+                                        checked={this.state.tarifSelected && this.state.tarifSelected.id == tarif.id}
+                                        onChange={() => {
+                                            this.setState({
+                                                ...this.state,
+                                                tarifSelected: tarif,
+                                                openTarifs: false
+                                            })
+                                        }}
+                                    />
+                                }
+                                label={<Tarif tarif={tarif} />}
+                            />
+                            </ListItem>
+                        ))}
+                    </List>
             </Dialog>
         )
     }
@@ -211,20 +237,37 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
                                 <Typography style={{padding: 8}}>
                                     Description de {this.state.activitySelected.section}
                                 </Typography>
-                                <List>
-                                    {this.renderSessions()}
-                                    {this.renderTarif()}
-                                </List>
+
+                                {this.state.activitySelected.tarifs && this.state.activitySelected.tarifs.length > 1 ?
+                                    <List>
+                                        {this.renderTarif()}
+                                        {this.renderSessions()}
+                                    </List>
+                                    :
+                                    <List>
+                                        {this.renderSessions()}
+                                        {this.renderTarif()}
+                                    </List>
+                                }
+
                                 
                                 <div style={{padding:8, paddingTop: 16}}>
                                     <Button 
                                         color="primary" 
                                         fullWidth variant="contained" 
                                         disabled={!this.state.tarifSelected || !this.state.sessionsSelected}
+                                        onClick={() => {
+                                            this.props.onAddAdhesion(
+                                                this.state.activitySelected,
+                                                this.state.sessionsSelected,
+                                                this.state.tarifSelected
+                                            )
+                                        }}
                                     >Ajouter l'activité</Button>
                                 </div>
 
                                 {this.renderDialogSessions()}
+                                {this.renderDialogTarif()}
                                 
                             </div>}
                             

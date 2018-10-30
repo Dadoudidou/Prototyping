@@ -15,6 +15,7 @@ type WrapConnectPublicChildrenProps<T=any> = {
 
 type WrapConnectPublicProps<T=any, N=string> = {
     name: N
+    forceUpdate?: (() => boolean) | boolean
     children: (props: WrapConnectPublicChildrenProps<T>) => JSX.Element | null | false
 }
 
@@ -44,8 +45,12 @@ export default class DataConnect<T = any,N=string> extends React.Component<WrapC
         return DataConnect as React.ComponentClass<WrapConnectPublicProps<P,Q>>;
     }
 
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps: WrapConnectPublicProps<T,N>, nextState){
         if(this.props.name != nextProps.name) return true;
+        if(nextProps.forceUpdate){
+            if(typeof nextProps.forceUpdate == "function") return nextProps.forceUpdate();
+            if(typeof nextProps.forceUpdate == "boolean") return nextProps.forceUpdate;
+        }
         return false;
     }
 

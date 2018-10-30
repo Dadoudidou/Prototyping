@@ -117,10 +117,12 @@ const campagnes: campagne[] = [
 export type IExpress = {
     adherents: adherent[]
     Step1_adherentSelected: number
+    adhesions: adhesion[]
 }
 const iexpress: IExpress = {
     adherents: [],
-    Step1_adherentSelected: -1
+    Step1_adherentSelected: -1,
+    adhesions: []
 }
 
 //#endregion
@@ -132,15 +134,19 @@ export type adhesion = {
     adherent: adherent,
     activite: activite,
     campagne: campagne,
+    sessions?: session[]
+    tarif?: tarif
     valide?: boolean
 }
 const adhesions: adhesion[] = [];
 for(let i=0; i<10; i++){
+    let _activiteIndex = Math.floor(Math.random() * Math.floor(activites.length));
     adhesions.push({
         id: i,
         adherent: adherents[Math.floor(Math.random() * Math.floor(adherents.length))],
-        activite: activites[Math.floor(Math.random() * Math.floor(activites.length))],
+        activite: activites[_activiteIndex],
         campagne: campagnes[Math.floor(Math.random() * Math.floor(campagnes.length))],
+        tarif: activites[_activiteIndex].tarifs ? activites[_activiteIndex].tarifs[0]: undefined,
         valide: true
     })
 }
@@ -162,7 +168,7 @@ adherents.push({
 })
 adhesions.push({ id: 9998, adherent: adherents[adherents.length - 1], campagne: campagnes[0], activite: activites[4], valide: true })
 adhesions.push({ id: 9999, adherent: adherents[adherents.length - 1], campagne: campagnes[0], activite: activites[9], valide: true })
-adhesions.push({ id: 9997, adherent: adherents[adherents.length - 1], campagne: campagnes[1], activite: activites[9], valide: false })
+//adhesions.push({ id: 9997, adherent: adherents[adherents.length - 1], campagne: campagnes[1], activite: activites[9], valide: false })
 //#endregion
 
 export const init = () => {

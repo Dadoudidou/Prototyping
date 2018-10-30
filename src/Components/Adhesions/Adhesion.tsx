@@ -3,6 +3,7 @@ import { adhesion } from "../../Datas";
 import { Typography, Button, StyleRulesCallback, WithStyles, withStyles } from "@material-ui/core";
 import Session from "../Activites/Session";
 import Activite from "../Activites/Activite";
+import Tarif from "../Activites/Tarif";
 
 type classkey = "root" | "labelButton" | "disabledButton"
 const styles: StyleRulesCallback<classkey> = theme => ({
@@ -30,6 +31,7 @@ type props = {
 }
 
 export default withStyles(styles)((props: props & WithStyles<classkey>) => {
+    let _sessions = props.adhesion.sessions || props.adhesion.activite.sessions;
     return (
         <Button 
             fullWidth 
@@ -44,12 +46,17 @@ export default withStyles(styles)((props: props & WithStyles<classkey>) => {
             variant="flat"
             onClick={props.onClick}
         >
-            <Activite activite={props.adhesion.activite} />
-
             <div>
-            {props.adhesion.activite.sessions.map((x,i) => (
-                <Session session={x} key={i} variant="caption" />
-            ))}
+                <Activite activite={props.adhesion.activite} />
+
+                <div>
+                {_sessions.map((x,i) => (
+                    <Session session={x} key={i} variant="caption" />
+                ))}
+                </div>
+            </div>
+            <div>
+                <Tarif tarif={props.adhesion.tarif} />
             </div>
         </Button>
     )

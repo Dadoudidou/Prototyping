@@ -7,6 +7,7 @@ import DatasIexpress from "../../../Datas/DatasIexpress";
 import Step2Saisons from "./Step2Saisons";
 import { campagne } from "../../../Datas";
 import ModalAddACtivity from "./ModalAddActivity";
+import { getHistory } from "../../../System/Route";
 
 
 type state = {
@@ -18,7 +19,8 @@ type state = {
 export default class extends React.PureComponent<any, state>
 {
     state = {
-        openModal: false
+        openModal: false,
+        Modal_Campagne: undefined
     }
     render(){
         return (
@@ -45,15 +47,43 @@ export default class extends React.PureComponent<any, state>
                         }}
                         onSelectAdhesion={adhesion => { console.log(adhesion)}}
                     />
-                    <ModalAddACtivity 
-                        open={this.state.openModal}
-                        onClose={() => this.setState({...this.state, openModal: false})}
-                    />
+                    <DatasIexpress name="iexpress" forceUpdate={true}>
+                        {(iexpress) => 
+                            <ModalAddACtivity 
+                                open={this.state.openModal}
+                                onClose={() => this.setState({...this.state, openModal: false})}
+                                onAddAdhesion={(activite, sessions, tarif) => {
+                                    console.log("new adhesion", activite, sessions, tarif);
+                                    iexpress.update({
+                                        ...iexpress.data,
+                                        adhesions: [
+                                            ...(iexpress.data.adhesions || []),
+                                            {
+                                                campagne: this.state.Modal_Campagne,
+                                                activite,
+                                                adherent: iexpress.data.adherents[iexpress.data.Step1_adherentSelected],
+                                                sessions,
+                                                tarif,
+                                                id: (iexpress.data.adhesions || []).length + 200
+                                            }
+                                        ]
+                                    })
+                                    this.setState({...this.state, openModal: false});
+                                }}
+                            />
+                        }
+                    </DatasIexpress>
 
                     <DatasIexpress name="iexpress">
                         {(data) => data.data.Step1_adherentSelected != -1 && <div>
                             <div style={{marginTop:"2em", textAlign: "right"}}>
-                                <Button variant="raised" color="primary">
+                                <Button variant="raised" color="primary" onClick={() => {
+                                    data.update({
+                                        ...data.data,
+                                        Step1_adherentSelected: 0
+                                    });
+                                    getHistory().push("/InscriptionExpress/Etape3");
+                                }}>
                                     Etape suivante : <br /> 
                                     Ajouter des équipements
                                 </Button>

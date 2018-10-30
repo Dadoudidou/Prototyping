@@ -6,13 +6,18 @@ import { TypographyProps } from "@material-ui/core/Typography";
 
 type props = {
     tarif: tarif
+    lines?: 1 | 2 | 3
 } & TypographyProps
 
 export default (props: props) => {
-    const { tarif, ...typoProps } = props;
+    const { tarif, lines, ...typoProps } = props;
 
+    if(!tarif) return null;
 
+    let _lines = lines | 1;
     let ret = [];
+    let ret2 = [];
+    let ret3 = [];
 
     ret.push(tarif.montant + " €");
 
@@ -20,10 +25,12 @@ export default (props: props) => {
         //ret.push("Carte de " + order.card_nb_session + " session" + (order.card_nb_session > 1 ? "s" : ""));
     //} else {
         if (!tarif.nbSessions) {
-            ret.push("Toutes sessions");
+            if(_lines == 1) ret.push("Toutes sessions");
+            else ret2.push("Toutes sessions")
         } else {
             //if (order.restriction_session_max == order.restriction_session_min) {
-                ret.push(tarif.nbSessions + " session" + (tarif.nbSessions > 1 ? "s" : ""));
+                if(_lines == 1) ret.push(tarif.nbSessions + " session" + (tarif.nbSessions > 1 ? "s" : ""));
+                else ret2.push(tarif.nbSessions + " session" + (tarif.nbSessions > 1 ? "s" : ""))
             //} else {
               //  ret.push("de " + order.restriction_session_min + " à " + order.restriction_session_max + " sessions");
             //}
@@ -31,13 +38,19 @@ export default (props: props) => {
     //}
 
     if(tarif.dateDebut && tarif.dateFin)
-        ret.push("du " + moment(tarif.dateDebut).format("LL") + " au " + moment(tarif.dateFin).format("LL"));
+        if(_lines == 1) ret.push("du " + moment(tarif.dateDebut).format("ll") + " au " + moment(tarif.dateFin).format("ll"));
+        else if(_lines == 2) ret2.push("du " + moment(tarif.dateDebut).format("ll") + " au " + moment(tarif.dateFin).format("ll"))
+        else ret3.push("du " + moment(tarif.dateDebut).format("ll") + " au " + moment(tarif.dateFin).format("ll"));
 
     //return ret.join(" - ");
 
     return (
         <Typography {...typoProps}>
             {ret.join(" - ")}
+            {ret2.length > 0 && <br />}
+            {ret2.join(" - ")}
+            {ret3.length > 0 && <br />}
+            {ret3.join(" - ")}
         </Typography>
     )
 }
