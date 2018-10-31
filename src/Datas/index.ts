@@ -118,17 +118,33 @@ export type IExpress = {
     adherents: adherent[]
     Step1_adherentSelected: number
     adhesions: adhesion[]
+    equipements: equipement[]
 }
 const iexpress: IExpress = {
     adherents: [],
     Step1_adherentSelected: -1,
-    adhesions: []
+    adhesions: [],
+    equipements: []
 }
 
 //#endregion
 
+//#region EQUIPEMENTS
+export type equipement = {
+    id: number
+    nom: string
+    description?: string
+    montant?: number
+    montantDescription?: string
+    adherent: adherent
+    campagne: campagne
+}
+const equipements: equipement[] = []
+
+//#endregion
 
 //#region ADHESIONS
+
 export type adhesion = {
     id: number
     adherent: adherent,
@@ -152,6 +168,8 @@ for(let i=0; i<10; i++){
 }
 
 //#endregion
+
+
 
 //#region TEST
 adherents.push({
@@ -177,13 +195,14 @@ export const init = () => {
     store.dispatch(DatasActions.set({ key: "activites", value: activites }));
     store.dispatch(DatasActions.set({ key: "iexpress", value: iexpress }));
     store.dispatch(DatasActions.set({ key: "adhesions", value: adhesions }));
+    store.dispatch(DatasActions.set({ key: "equipements", value: equipements }));
 }
 
 export const DatasAdherents = DataConnect.ofType<adherent[], "adherents">();
 export const DatasCampagnes = DataConnect.ofType<campagne[], "campagnes">();
 export const DatasActivites = DataConnect.ofType<activite[], "activites">();
 export const DatasAdhesions = DataConnect.ofType<adhesion[], "adhesions">();
-
+export const DatasEquipements = DataConnect.ofType<equipement[], "equipements">();
 
 
 
@@ -193,4 +212,5 @@ export default {
     activites: store.getState().DatasReducer["activites"],
     iexpress: store.getState().DatasReducer["iexpress"] as IExpress,
     adhesions: store.getState().DatasReducer["adhesions"] as adhesion[],
+    equipements: store.getState().DatasReducer["equipements"] as equipement[]
 }

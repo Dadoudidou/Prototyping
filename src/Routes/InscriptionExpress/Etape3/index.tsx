@@ -5,6 +5,7 @@ import { AddCircleOutline } from "@material-ui/icons";
 import AdherentTabs from "./../Etape1/AdherentTabs";
 import DatasIexpress from "../../../Datas/DatasIexpress";
 import { getHistory } from "../../../System/Route";
+import Step3Saisons from "./Step3Saisons";
 
 
 type state = {
@@ -29,6 +30,7 @@ export default class IEEtape3 extends React.PureComponent<any, state>
                 />
                 <div style={{ marginTop: 130 }}>
                     <AdherentTabs disableAddAdherent />
+                    <Step3Saisons showAddEquipement />
                     <DatasIexpress name="iexpress">
                         {(data) => data.data.Step1_adherentSelected != -1 && <div>
                             <div style={{marginTop:"2em", textAlign: "right"}}>

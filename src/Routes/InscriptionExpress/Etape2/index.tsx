@@ -5,7 +5,7 @@ import { AddCircleOutline } from "@material-ui/icons";
 import AdherentTabs from "./../Etape1/AdherentTabs";
 import DatasIexpress from "../../../Datas/DatasIexpress";
 import Step2Saisons from "./Step2Saisons";
-import { campagne } from "../../../Datas";
+import { campagne, DatasAdherents, DatasAdhesions } from "../../../Datas";
 import ModalAddACtivity from "./ModalAddActivity";
 import { getHistory } from "../../../System/Route";
 
@@ -53,7 +53,18 @@ export default class extends React.PureComponent<any, state>
                                 open={this.state.openModal}
                                 onClose={() => this.setState({...this.state, openModal: false})}
                                 onAddAdhesion={(activite, sessions, tarif) => {
-                                    console.log("new adhesion", activite, sessions, tarif);
+                                    let _equipements = iexpress.data.equipements.filter(x => x.adherent.id == iexpress.data.adherents[iexpress.data.Step1_adherentSelected].id);
+                                    let _adhesions = iexpress.store.getState().DatasReducer["adhesions"].filter(x => x.adherent.id == iexpress.data.adherents[iexpress.data.Step1_adherentSelected].id);
+                                    if(_equipements. length == 0 && _adhesions.length > 0){
+                                        _equipements.push({
+                                            adherent: iexpress.data.adherents[iexpress.data.Step1_adherentSelected],
+                                            campagne: this.state.Modal_Campagne,
+                                            id: iexpress.data.equipements.length + 1,
+                                            nom: "Serviette microfibre ACB",
+                                            montant: 0,
+                                            montantDescription: "Fourni lors d'un renouvellement annuel"
+                                        })
+                                    }
                                     iexpress.update({
                                         ...iexpress.data,
                                         adhesions: [
@@ -66,7 +77,8 @@ export default class extends React.PureComponent<any, state>
                                                 tarif,
                                                 id: (iexpress.data.adhesions || []).length + 200
                                             }
-                                        ]
+                                        ],
+                                        equipements: [...iexpress.data.equipements, ..._equipements]
                                     })
                                     this.setState({...this.state, openModal: false});
                                 }}
