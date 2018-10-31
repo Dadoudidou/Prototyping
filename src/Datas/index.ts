@@ -111,6 +111,28 @@ const campagnes: campagne[] = [
 ]
 //#endregion
 
+//#region FACTURES
+export type facture = {
+    id: number
+    elements: factureElement[]
+}
+export type factureElement = {
+    id: number
+    nom: string
+    adherent?: adherent
+    description?: React.ReactNode
+    detail?: React.ReactNode
+    montant: number
+}
+export type factureReglement = {
+    id: number
+    montant: number
+    date: Date
+    type: string
+    banque?: string
+    banque_numero?:string
+}
+//#endregion
 
 //#region INSCRIPTION EXPRESS
 
@@ -119,12 +141,14 @@ export type IExpress = {
     Step1_adherentSelected: number
     adhesions: adhesion[]
     equipements: equipement[]
+    facture: facture
 }
 const iexpress: IExpress = {
     adherents: [],
     Step1_adherentSelected: -1,
     adhesions: [],
-    equipements: []
+    equipements: [],
+    facture: undefined
 }
 
 //#endregion
