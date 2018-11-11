@@ -7,10 +7,11 @@ import { TypographyProps } from "@material-ui/core/Typography";
 type props = {
     tarif: tarif
     lines?: 1 | 2 | 3
+    hideMontant?: boolean
 } & TypographyProps
 
 export default (props: props) => {
-    const { tarif, lines, ...typoProps } = props;
+    const { tarif, lines, hideMontant, ...typoProps } = props;
 
     if(!tarif) return null;
 
@@ -19,7 +20,7 @@ export default (props: props) => {
     let ret2 = [];
     let ret3 = [];
 
-    ret.push(tarif.montant + " €");
+    if(!hideMontant) ret.push(tarif.montant + " €");
 
     //if (tarif.is_card) {
         //ret.push("Carte de " + order.card_nb_session + " session" + (order.card_nb_session > 1 ? "s" : ""));
@@ -47,7 +48,7 @@ export default (props: props) => {
     return (
         <Typography {...typoProps}>
             {ret.join(" - ")}
-            {ret2.length > 0 && <br />}
+            {ret2.length > 0 && ret.length > 0 && <br />}
             {ret2.join(" - ")}
             {ret3.length > 0 && <br />}
             {ret3.join(" - ")}

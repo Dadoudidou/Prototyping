@@ -115,6 +115,7 @@ const campagnes: campagne[] = [
 export type facture = {
     id: number
     elements: factureElement[]
+    reglements?: factureReglement[]
 }
 export type factureElement = {
     id: number

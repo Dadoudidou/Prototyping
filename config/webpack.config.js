@@ -112,6 +112,8 @@ if (production) {
 webpackConfig.devServer = {
     contentBase: distPath,
     port: 9000,
+    //host: "192.168.1.16",
+    disableHostCheck: true,
     stats: {
         colors: true,
         hash: false,

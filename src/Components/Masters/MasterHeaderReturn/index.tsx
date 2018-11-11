@@ -7,12 +7,13 @@ import BackIcon from "../../Headers/BackIcon";
 type props = {
     title?: string
     toolbar?: React.ReactNode
+    noBackIcon?: boolean
 }
 
 export default(props: props) => (
     <AppBar>
         <Toolbar>
-            <BackIcon />
+            {!props.noBackIcon && <BackIcon />}
             <Typography color="inherit" variant="title">{props.title}</Typography>
             <div style={{flexGrow:1}}></div>
             <AccountIcon />

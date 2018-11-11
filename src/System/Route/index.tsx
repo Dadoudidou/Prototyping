@@ -12,7 +12,7 @@ export const getHistory = (): History => {
 }
 
 // -- ROUTERROUTES
-import { RouteProps } from "react-router"
+import { RouteProps, Redirect } from "react-router"
 export type RouterRoute = {
     rules?: string[]
 } & RouteProps
@@ -45,7 +45,9 @@ export class RenderRoutes extends React.Component<RenderRoutesProps, any>
     render(){
         return (
             <Switch>
-                <Route exact path="/" component={NotFoundPage as any} />
+                <Route exact path="/" render={() => (
+                    <Redirect to="/Accueil" />
+                )} />
                 {this.props.routes.map((route, index) => {
                     return (
                         <Route key={index} {...route} />
