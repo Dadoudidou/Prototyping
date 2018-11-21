@@ -4,6 +4,9 @@ import { hot } from "react-hot-loader"
 
 import App from "./App";
 import { init as initDatas } from "./Datas";
+
+window.scrollTo(0,1);
+
 initDatas();
 
 require("./index.scss");
@@ -14,6 +17,6 @@ let Index = () => (<App />);
 }*/
 ReactDom.render(<Index />, document.getElementById("root"));
 
-import Test from "./Datas";
-var a = Test.activites;
-console.log(Test.adherents);
+//import Test from "./Datas";
+//var a = Test.activites;
+//console.log(Test.adherents);

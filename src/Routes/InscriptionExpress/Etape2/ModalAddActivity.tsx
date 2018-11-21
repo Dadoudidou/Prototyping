@@ -208,7 +208,13 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
                             {(activites) => (
                                 
                                     <List>
-                                        {activites.data.map(activite => (
+                                        {[...activites.data].sort((a,b) => {
+                                            let _a = `${a.categorie}/${a.activite}/${a.section}`;
+                                            let _b = `${b.categorie}/${b.activite}/${b.section}`;
+                                            if(_a < _b) return -1;
+                                            if(_a > _b) return 1;
+                                            return 0;
+                                        }).map(activite => (
                                             <ListItem 
                                                 key={activite.id}
                                                 button

@@ -78,7 +78,12 @@ const activites: activite[] = [
         { id: 1, montant: 220 }
     ]},
     { id:11, categorie: "Loisir", activite: "Natation", section: "Adolescent", sessions: []  },
-    { id:12, categorie: "Loisir", activite: "Natation", section: "Adulte", sessions: []  },
+    { id:12, categorie: "Loisir", activite: "Natation", section: "Adulte", sessions: [
+        { id:12, jour: 1, debut: "20:00:00", fin: "20:45:00", place: 20, lieu: P1 },
+        { id:13, jour: 5, debut: "21:00:00", fin: "22:45:00", place: 20, lieu: P1 },
+    ], tarifs: [
+        { id: 9, montant: 100 }
+    ]  },
     { id:13, categorie: "Loisir", activite: "Aquaforme", section: "Aquagym", sessions: [
         { id:3, jour: 1, debut: "12:00:00", fin: "12:45:00", place: 10, lieu: P1 },
         { id:4, jour: 1, debut: "12:45:00", fin: "13:30:00", place: 10, lieu: P1 },
@@ -96,6 +101,14 @@ const activites: activite[] = [
         { id: 7, montant: 160, dateDebut: new Date("2018-04-01"), dateFin: new Date("2019-06-31"), nbSessions:2 },
     ]},
     { id:14, categorie: "Loisir", activite: "Aquaforme", section: "Aquapalming", sessions: []  },
+    { id:15, categorie: "Compétition", activite: "Ecole de Nage", section: "Sauv'Nage", sessions: []  },
+    { id:16, categorie: "Compétition", activite: "Ecole de Nage", section: "Passport de l'eau", sessions: [
+        { id:10, jour: 2, debut: "19:00:00", fin: "20:15:00", place: 40, lieu: P1 },
+        { id:11, jour: 4, debut: "19:00:00", fin: "20:15:00", place: 40, lieu: P1 },
+    ], tarifs: [
+        { id: 8, montant: 220 }
+    ]},
+    { id:17, categorie: "Compétition", activite: "Ecole de Nage", section: "Pass Compétition", sessions: []  },
 ]
 //#endregion
 
@@ -199,18 +212,18 @@ for(let i=0; i<10; i++){
 //#region TEST
 adherents.push({
     id:9999,
-    nom: "Violet",
-    prenom: "David",
-    dateNaissance: moment("1984-11-29"),
-    telephone: "06 02 09 64 52",
-    adresse: "15 route du clos de Lizy",
-    codepostal: "18110",
-    ville: "Pigny",
-    email: "davidviolet18@gmail.com",
-    sexe: 0
+    nom: "Martin",
+    prenom: "Dominique",
+    dateNaissance: moment("1975-06-17"),
+    telephone: "06 07 05 01 09",
+    adresse: "18 chemin des escargots",
+    codepostal: "18000",
+    ville: "Bourges",
+    email: "d.martin@gmail.com",
+    sexe: 1
 })
-adhesions.push({ id: 9998, adherent: adherents[adherents.length - 1], campagne: campagnes[0], activite: activites[4], valide: true })
-adhesions.push({ id: 9999, adherent: adherents[adherents.length - 1], campagne: campagnes[0], activite: activites[9], valide: true })
+adhesions.push({ id: 9998, adherent: adherents[adherents.length - 1], campagne: campagnes[0], activite: activites[11], valide: true })
+//adhesions.push({ id: 9999, adherent: adherents[adherents.length - 1], campagne: campagnes[0], activite: activites[9], valide: true })
 //adhesions.push({ id: 9997, adherent: adherents[adherents.length - 1], campagne: campagnes[1], activite: activites[9], valide: false })
 //#endregion
 
