@@ -1,5 +1,6 @@
 import * as React from "react"
 import { withStyles, StyleRulesCallback, WithStyles, Paper, Typography, Grid, ListItem, ListItemText, List } from "@material-ui/core";
+import ChartDonut from "../../Components/Charts/ChartDonut";
 
 type classkey = "root" | "listItem" | "listItemTypo" | "title"
 const styles: StyleRulesCallback<classkey> = theme => ({
@@ -30,7 +31,7 @@ export default withStyles(styles)((props: props) => (
         <Typography variant="subheading" className={props.classes.title}>Inscriptions par catégories</Typography>
         <Grid container direction="row" style={{justifyContent: "center"}}>
             <Grid item >
-                <img src={img} width="100%" />
+                <ChartDonut />
             </Grid>
         </Grid>
     </Paper>
