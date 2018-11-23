@@ -13,7 +13,7 @@ type pieSlice = {
 
 type props = {
     values?: pieSlice[]
-}
+} & React.SVGProps<SVGSVGElement>
 
 type state = {
     selected?: pieSlice
@@ -34,12 +34,13 @@ export default class ChartDonu extends React.PureComponent<props, state>
     }
 
     render(){
+        const { values, ...svgProps } = this.props;
         let _pie = d3.pie<pieSlice>()
             .value(d => d.value)([
             { value: 169, text:"Compétitions" }, { value: 33, text: "Bénévoles" }, { value: 268, text: "Loisirs" }, { value: 158, text: "Ecoles" }
         ]);
         return (
-            <svg viewBox='0 0 500 500' style={{width:"100%"}}>
+            <svg viewBox='0 0 500 500' {...svgProps} >
                 <g transform="translate(250,250)">
                     {_pie.map((slice, index) => (
                         <Arc 
@@ -51,7 +52,9 @@ export default class ChartDonu extends React.PureComponent<props, state>
                             outerRadius={this.state.selected ? this.state.selected.value == slice.value ? 250 : 230 : 230}
                             thickness={this.state.selected ? this.state.selected.value == slice.value ? 70 : 50 : 50}
                             onClick={() => this.handle_onClick(slice.data)}
-                            
+                            style={{ 
+                                cursor: "pointer"
+                             }}
                         />
                     ))}
                     {this.state.selected && <g>

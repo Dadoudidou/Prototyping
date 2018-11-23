@@ -7,7 +7,8 @@ const styles: StyleRulesCallback<classkey> = theme => ({
     root: {
         marginTop: 8,
         marginBottom: 8,
-        padding: 16
+        padding: 16,
+        height: 200
     },
     listItem: {
         paddingTop: 2,
@@ -31,7 +32,7 @@ export default withStyles(styles)((props: props) => (
         <Typography variant="subheading" className={props.classes.title}>Inscriptions par catégories</Typography>
         <Grid container direction="row" style={{justifyContent: "center"}}>
             <Grid item >
-                <ChartDonut />
+                <ChartDonut style={{ width: 175 }} />
             </Grid>
         </Grid>
     </Paper>

@@ -6,7 +6,8 @@ const styles: StyleRulesCallback<classkey> = theme => ({
     root: {
         marginTop: 8,
         marginBottom: 8,
-        padding: 16
+        padding: 16,
+        maxHeight: 200
     },
     listItem: {
         paddingTop: 2,
@@ -30,7 +31,7 @@ export default withStyles(styles)((props: props) => (
         <Typography variant="headline" className={props.classes.title}>628 Adhérents</Typography>
         <Grid container direction="row">
             <Grid item xs={4}>
-                <img src={img_adherents} width="100%" />
+                <img src={img_adherents} height={150} />
             </Grid>
             <Grid item xs={8}>
                 <List>

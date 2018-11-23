@@ -6,7 +6,8 @@ const styles: StyleRulesCallback<classkey> = theme => ({
     root: {
         marginTop: 8,
         marginBottom: 8,
-        padding: 16
+        padding: 16,
+        height: 150
     },
     listItem: {
         paddingTop: 2,
