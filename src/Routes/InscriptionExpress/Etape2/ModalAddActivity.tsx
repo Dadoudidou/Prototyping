@@ -66,6 +66,13 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
     }
 
 
+    renderTest = () => {
+        if(!this.state.activitySelected || this.state.activitySelected.id != 16) return undefined;
+        return <ListItem button divider>
+            <ListItemText primary="Test de natation" secondary="Planifier un test de natation" />
+        </ListItem>
+    }
+
     renderTarif = () => {
         return (
             <ListItem 
@@ -246,11 +253,13 @@ export default class ModalAddACtivity extends React.PureComponent<props, state>
 
                                 {this.state.activitySelected.tarifs && this.state.activitySelected.tarifs.length > 1 ?
                                     <List>
+                                        {this.renderTest()}
                                         {this.renderTarif()}
                                         {this.renderSessions()}
                                     </List>
                                     :
                                     <List>
+                                        {this.renderTest()}
                                         {this.renderSessions()}
                                         {this.renderTarif()}
                                     </List>
