@@ -71,6 +71,7 @@
     "react-swipeable-views": "0.13.0",
     "@types/react-swipeable-views": "0.12.2",
     "d3": "5.7.0",
-    "@types/d3": "5.0.1"
+    "@types/d3": "5.0.1",
+    "react-frame-component": "4.0.2"
   }
 }

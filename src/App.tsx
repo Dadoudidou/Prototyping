@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import Frame from "react-frame-component";
 
 // -- config moment
 import * as moment from "moment";

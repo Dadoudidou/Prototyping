@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const srcPath = path.resolve(__dirname, './../src');
-const distPath = path.resolve(__dirname, './../dist');
+const distPath = path.resolve(__dirname, './../docs');
 
 //#region PRODUCTION DEVELOPMENT
 if (!process.env.NODE_ENV) process.env.NODE_ENV = "development";
