@@ -59,7 +59,7 @@ export default class IEEtape5 extends React.PureComponent<any, state>
                                 toolbar={(
                                     <Toolbar>
                                         <div style={{ width: 48 }}></div>
-                                        <Typography variant="title" color="inherit">5/5 - Réglements</Typography>
+                                        <Typography variant="subheading" color="inherit">5/5 - Réglements</Typography>
                                     </Toolbar>
                                 )}
                             />

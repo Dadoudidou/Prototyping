@@ -39,7 +39,7 @@ export default class IEEtape4 extends React.PureComponent<any, state>
                                     toolbar={(
                                         <Toolbar>
                                             <div style={{ width: 48 }}></div>
-                                            <Typography variant="title" color="inherit">4/5 - Facture</Typography>
+                                            <Typography variant="subheading" color="inherit">4/5 - Facture</Typography>
                                         </Toolbar>
                                     )}
                                 />

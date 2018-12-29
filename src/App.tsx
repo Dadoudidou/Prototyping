@@ -35,6 +35,11 @@ const theme = createMuiTheme({
             selected: {
                 backgroundColor: `${colors.deepOrange["100"]} !important`
             }
+        },
+        MuiToolbar: {
+            regular: {
+                minHeight: 32
+            }
         }
     }
 })
